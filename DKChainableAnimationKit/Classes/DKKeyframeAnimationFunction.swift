@@ -8,7 +8,7 @@
 
 import UIKit
 
-typealias DKKeyframeAnimationFunctionBlock = (Double, Double, Double, Double) -> Double
+public typealias DKKeyframeAnimationFunctionBlock = (Double, Double, Double, Double) -> Double
 
 func DKKeyframeAnimationFunctionLinear(var t: Double, b: Double, c: Double, d: Double) -> Double {
     t /= d
