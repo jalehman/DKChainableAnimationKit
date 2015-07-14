@@ -12,8 +12,8 @@ public class DKChainableAnimationKit {
 
     weak var view: UIView!
 
-    public typealias AnimationCalculationAction = UIView -> Void
-    public typealias AnimationCompletionAction = UIView -> Void
+    typealias AnimationCalculationAction = UIView -> Void
+    typealias AnimationCompletionAction = UIView -> Void
 
     internal var animationCalculationActions: [[AnimationCalculationAction]]!
     internal var animationCompletionActions: [[AnimationCompletionAction]]!
@@ -221,7 +221,7 @@ public class DKChainableAnimationKit {
 
     // MARK: - Animation Action
 
-    public func addAnimationKeyframeCalculation(functionBlock: DKKeyframeAnimationFunctionBlock) {
+    internal func addAnimationKeyframeCalculation(functionBlock: DKKeyframeAnimationFunctionBlock) {
         self.addAnimationCalculationAction { (view: UIView) -> Void in
             let animationCluster = self.animations.first
             if let animation = animationCluster?.last {
@@ -230,7 +230,7 @@ public class DKChainableAnimationKit {
         }
     }
 
-    public func addAnimationCalculationAction(action: AnimationCalculationAction) {
+    internal func addAnimationCalculationAction(action: AnimationCalculationAction) {
         if var actions = self.animationCalculationActions.last as [AnimationCalculationAction]? {
             actions.append(action)
             self.animationCalculationActions.removeLast()
@@ -238,7 +238,7 @@ public class DKChainableAnimationKit {
         }
     }
 
-    public func addAnimationCompletionAction(action: AnimationCompletionAction) {
+    internal func addAnimationCompletionAction(action: AnimationCompletionAction) {
         if var actions = self.animationCompletionActions.last as [AnimationCompletionAction]? {
             actions.append(action)
             self.animationCompletionActions.removeLast()
@@ -246,7 +246,7 @@ public class DKChainableAnimationKit {
         }
     }
 
-    public func addAnimationFromCalculationBlock(animation: DKKeyFrameAnimation) {
+    internal func addAnimationFromCalculationBlock(animation: DKKeyFrameAnimation) {
         if var animationCluster = self.animations.first {
             animationCluster.append(animation)
             self.animations.removeAtIndex(0)
