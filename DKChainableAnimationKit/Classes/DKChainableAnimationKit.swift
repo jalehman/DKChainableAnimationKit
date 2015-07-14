@@ -153,9 +153,9 @@ public class DKChainableAnimationKit {
     private func animateChain() {
         self.sanityCheck()
         CATransaction.begin()
-        CATransaction.setCompletionBlock { () -> Void in
-            self.view.layer.removeAnimationForKey("AnimationChain")
-            self.chainLinkDidFinishAnimating()
+        CATransaction.setCompletionBlock { [weak self] () -> Void in
+            self?.view.layer.removeAnimationForKey("AnimationChain")
+            self?.chainLinkDidFinishAnimating()
         }
         self.animateChainLink()
         CATransaction.commit()
@@ -186,10 +186,10 @@ public class DKChainableAnimationKit {
             let delay = max(group.beginTime - CACurrentMediaTime(), 0.0)
             let delayTime = dispatch_time(DISPATCH_TIME_NOW,
                 Int64(delay * Double(NSEC_PER_SEC)))
-            dispatch_after(delayTime, dispatch_get_main_queue()) {
-                if let actionCluster: [AnimationCompletionAction] = self.animationCompletionActions.first {
+            dispatch_after(delayTime, dispatch_get_main_queue()) { [weak self] _ in
+                if let actionCluster: [AnimationCompletionAction] = self?.animationCompletionActions.first {
                     for action in actionCluster {
-                        action(self.view)
+                        action(self!.view)
                     }
                 }
             }
@@ -222,8 +222,8 @@ public class DKChainableAnimationKit {
     // MARK: - Animation Action
 
     internal func addAnimationKeyframeCalculation(functionBlock: DKKeyframeAnimationFunctionBlock) {
-        self.addAnimationCalculationAction { (view: UIView) -> Void in
-            let animationCluster = self.animations.first
+        self.addAnimationCalculationAction { [weak self] (view: UIView) -> Void in
+            let animationCluster = self?.animations.first
             if let animation = animationCluster?.last {
                 animation.functionBlock = functionBlock
             }
