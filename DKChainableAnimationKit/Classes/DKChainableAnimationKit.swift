@@ -189,7 +189,9 @@ public class DKChainableAnimationKit {
             dispatch_after(delayTime, dispatch_get_main_queue()) { [weak self] _ in
                 if let actionCluster: [AnimationCompletionAction] = self?.animationCompletionActions.first {
                     for action in actionCluster {
-                        action(self!.view)
+                        if self != nil {
+                            action(self!.view)
+                        }
                     }
                 }
             }
