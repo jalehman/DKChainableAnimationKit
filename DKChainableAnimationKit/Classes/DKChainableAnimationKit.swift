@@ -8,6 +8,8 @@
 
 import UIKit
 
+private var animationKitAssociationKey = "animationKitAssociationKey"
+
 public class DKChainableAnimationKit {
 
     weak var view: UIView!
@@ -25,6 +27,12 @@ public class DKChainableAnimationKit {
 
     public init() {
         self.setup()
+    }
+    
+    public init(view: UIView) {
+        self.setup()
+        self.view = view
+        objc_setAssociatedObject(view, &animationKitAssociationKey, self, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN))
     }
 
     private func setup() {

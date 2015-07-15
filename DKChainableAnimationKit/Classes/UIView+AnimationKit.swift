@@ -23,9 +23,6 @@ public extension UIView {
                 objc_setAssociatedObject(self, &animationKitAssociationKey, animation, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN))
                 return animation
             }
-        } set {
-            newValue.view = self
-            objc_setAssociatedObject(self, &animationKitAssociationKey, newValue, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN))
         }
     }
 
