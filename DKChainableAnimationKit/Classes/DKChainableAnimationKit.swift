@@ -23,7 +23,7 @@ public class DKChainableAnimationKit {
 
     // MARK: - Initialize
 
-    init() {
+    public init() {
         self.setup()
     }
 
